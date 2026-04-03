@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -9,13 +10,14 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-brand-dark/80 backdrop-blur-xl border-b border-brand-border/50">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-brand-blue flex items-center justify-center">
-            <span className="text-white font-bold text-sm">B</span>
-          </div>
-          <span className="font-bold text-brand-text tracking-tight">
-            BRAND <span className="text-brand-orange">IA</span>
-          </span>
+        <a href="#">
+          <Image
+            src="/logo.png"
+            alt="BRAND IA"
+            width={40}
+            height={40}
+            style={{ filter: "brightness(0) invert(1) drop-shadow(0 0 6px rgba(255,140,0,0.6))" }}
+          />
         </a>
 
         {/* Desktop links */}
