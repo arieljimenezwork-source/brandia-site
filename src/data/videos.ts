@@ -29,5 +29,14 @@ export const videos: Video[] = [
     date: "2026-04-03",
     tags: ["IA", "producción", "dev"],
   },
+  {
+    id: "2",
+    title: "Mejorando la producción de videos y aplicaciones web con herramientas efectivas",
+    description:
+      "Cómo optimizo mi workflow de producción combinando herramientas de video y desarrollo web. Introducción a localhost y más.",
+    loomId: "c7bd4fedece8447db7d3594b279b0520",
+    date: "2026-04-03",
+    tags: ["producción", "dev", "workflow"],
+  },
   // --- Agregá más videos acá abajo ---
 ];
