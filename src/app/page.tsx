@@ -1,8 +1,11 @@
 import Navbar from "@/components/Navbar";
 import VideoCard from "@/components/VideoCard";
-import { videos } from "@/data/videos";
+import { getVideos } from "@/lib/supabase";
 
-export default function Home() {
+export const revalidate = 60; // revalidar cada 60 segundos
+
+export default async function Home() {
+  const videos = await getVideos();
   return (
     <>
       <Navbar />
