@@ -37,7 +37,7 @@ export default async function Home() {
 
           {/* Right — Logo */}
           <div className="flex items-center justify-center md:justify-end">
-            <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-6">
+            <div className="bg-white/20 backdrop-blur-sm rounded-3xl p-6">
             <Image
               src="/logo.png"
               alt="Brand IA"
