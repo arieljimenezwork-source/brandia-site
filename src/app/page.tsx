@@ -37,14 +37,16 @@ export default async function Home() {
 
           {/* Right — Logo */}
           <div className="flex items-center justify-center md:justify-end">
+            <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-6">
             <Image
               src="/logo.png"
               alt="Brand IA"
-              width={300}
-              height={300}
-              className="object-contain opacity-90"
+              width={280}
+              height={280}
+              className="object-contain"
               priority
             />
+            </div>
           </div>
         </div>
       </section>
