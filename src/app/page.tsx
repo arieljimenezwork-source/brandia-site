@@ -40,8 +40,8 @@ export default async function Home() {
             <Image
               src="/logo.png"
               alt="Brand IA"
-              width={220}
-              height={220}
+              width={300}
+              height={300}
               className="object-contain opacity-90"
               priority
             />
