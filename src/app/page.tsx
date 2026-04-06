@@ -1,228 +1,148 @@
-import Navbar from "@/components/Navbar";
+import Image from "next/image";
 import VideoCard from "@/components/VideoCard";
+import SubscribeForm from "@/components/SubscribeForm";
 import { getVideos } from "@/lib/supabase";
 
-export const revalidate = 60; // revalidar cada 60 segundos
+export const revalidate = 60;
+
+const TAGS = [
+  { label: "IA & Automatización", color: "bg-orange-500" },
+  { label: "Dev Full-Stack", color: "bg-orange-400" },
+  { label: "Negocios Digitales", color: "bg-blue-500" },
+];
 
 export default async function Home() {
   const videos = await getVideos();
+
   return (
-    <>
-      <Navbar />
+    <div className="min-h-screen bg-[#080810] text-white font-sans">
 
       {/* ==================== HERO ==================== */}
-      <section className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
-        {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-blue/5 via-brand-dark to-brand-dark" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-brand-blue/8 rounded-full blur-[120px]" />
+      <section className="relative overflow-hidden px-6 pt-20 pb-16 max-w-6xl mx-auto">
+        {/* Glow background */}
+        <div className="pointer-events-none absolute right-0 top-0 w-[600px] h-[600px] bg-blue-700/20 rounded-full blur-[140px]" />
+        <div className="pointer-events-none absolute right-40 top-20 w-[300px] h-[300px] bg-purple-700/15 rounded-full blur-[100px]" />
 
-        <div className="relative max-w-4xl mx-auto px-6 text-center">
-          <div className="animate-fade-in-up">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-card border border-brand-border mb-8">
-              <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse" />
-              <span className="text-xs text-brand-muted font-medium">
-                Creando contenido sin filtro
-              </span>
-            </div>
-
-            {/* Title */}
-            <h1
-              className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.1] mb-6"
-              style={{ fontFamily: "'Playfair Display', serif" }}
-            >
-              BRAND{" "}
-              <span className="gradient-text">IA</span>
+        <div className="relative grid md:grid-cols-[1fr_auto] gap-8 items-center">
+          {/* Left */}
+          <div>
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-black leading-[1.05] tracking-tight mb-8">
+              Construyo con IA.<br />
+              Automatizo negocios.
             </h1>
 
-            <p className="text-xl sm:text-2xl text-brand-muted font-light max-w-2xl mx-auto mb-4">
-              Ariel Jimenez
-            </p>
+            {/* Email opt-in */}
+            <SubscribeForm />
+          </div>
 
-            <p className="text-base sm:text-lg text-brand-muted/80 max-w-xl mx-auto mb-10 leading-relaxed">
-              IA, automatización y negocios digitales.
-              <br />
-              Lo que pienso, lo que construyo, sin filtro.
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href="#videos"
-                className="px-8 py-3.5 bg-brand-blue hover:bg-brand-blue-light text-white font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-brand-blue/20"
-              >
-                Ver Videos
-              </a>
-              <a
-                href="https://www.tiktok.com/@brandia.lat"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-3.5 bg-brand-card border border-brand-border text-brand-text font-medium rounded-xl hover:border-brand-blue/50 transition-all"
-              >
-                TikTok
-              </a>
-            </div>
+          {/* Right — Logo */}
+          <div className="flex items-center justify-center md:justify-end">
+            <Image
+              src="/logo.png"
+              alt="Brand IA"
+              width={220}
+              height={220}
+              className="object-contain opacity-90"
+              priority
+            />
           </div>
         </div>
+      </section>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <svg
-            width="24"
-            height="24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            className="text-brand-muted/40"
-          >
-            <path d="M6 9l6 6 6-6" />
-          </svg>
+      {/* ==================== TAGS ==================== */}
+      <section className="px-6 pb-12 max-w-6xl mx-auto">
+        <div className="flex flex-wrap gap-3">
+          {TAGS.map((tag) => (
+            <span
+              key={tag.label}
+              className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-white/70"
+            >
+              <span className={`w-2 h-2 rounded-full ${tag.color}`} />
+              {tag.label}
+            </span>
+          ))}
         </div>
       </section>
 
       {/* ==================== VIDEOS ==================== */}
-      <section id="videos" className="py-24 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-16">
-            <h2
-              className="text-3xl sm:text-4xl font-black tracking-tight mb-4"
-              style={{ fontFamily: "'Playfair Display', serif" }}
-            >
-              Videos
-            </h2>
-            <p className="text-brand-muted text-lg max-w-xl">
-              Videos largos, ideas en crudo, lo que estoy construyendo.
-              Clips cortos en{" "}
-              <a
-                href="https://www.tiktok.com/@brandia.lat"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-brand-orange hover:underline"
-              >
-                TikTok
-              </a>
-              .
-            </p>
+      <section id="videos" className="px-6 pb-20 max-w-6xl mx-auto">
+        {videos.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {videos.map((video) => (
+              <VideoCard key={video.id} video={video} />
+            ))}
           </div>
-
-          {videos.length > 0 ? (
-            <div className="stagger grid grid-cols-1 md:grid-cols-2 gap-8">
-              {videos.map((video) => (
-                <VideoCard key={video.id} video={video} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-20 bg-brand-card/50 rounded-2xl border border-brand-border">
-              <p className="text-brand-muted text-lg">
-                Primer video en camino...
-              </p>
-            </div>
-          )}
-        </div>
+        ) : (
+          <div className="text-center py-20 rounded-2xl border border-white/8">
+            <p className="text-white/40 text-lg">Primer video en camino...</p>
+          </div>
+        )}
       </section>
 
-      {/* ==================== SOBRE MÍ ==================== */}
-      <section id="sobre-mi" className="py-24 px-6 bg-brand-surface">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-[1fr_2fr] gap-12 items-start">
-            {/* Left */}
-            <div>
-              <div className="w-32 h-32 rounded-2xl bg-brand-blue/10 border border-brand-border flex items-center justify-center mb-6">
-                <span
-                  className="text-4xl font-black text-brand-blue"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
-                >
-                  AJ
-                </span>
-              </div>
-              <div className="flex gap-3">
-                <a
-                  href="https://www.tiktok.com/@brandia.lat"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-lg bg-brand-card border border-brand-border flex items-center justify-center text-brand-muted hover:text-brand-text hover:border-brand-blue/50 transition"
-                  aria-label="TikTok"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.69a8.27 8.27 0 004.76 1.51V6.75a4.83 4.83 0 01-1-.06z" />
-                  </svg>
-                </a>
-                <a
-                  href="https://www.instagram.com/brandia.lat/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-lg bg-brand-card border border-brand-border flex items-center justify-center text-brand-muted hover:text-brand-text hover:border-brand-blue/50 transition"
-                  aria-label="Instagram"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect x="2" y="2" width="20" height="20" rx="5" />
-                    <circle cx="12" cy="12" r="5" />
-                    <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
-                  </svg>
-                </a>
-              </div>
-            </div>
+      {/* ==================== ABOUT ==================== */}
+      <section id="sobre-mi" className="px-6 py-20 border-t border-white/8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-[auto_1fr] gap-10 items-start">
+          {/* Photo */}
+          <div className="flex-shrink-0">
+            <Image
+              src="/ariel.png"
+              alt="Ariel Jimenez"
+              width={120}
+              height={120}
+              className="rounded-2xl object-cover object-top w-[120px] h-[120px]"
+            />
+          </div>
 
-            {/* Right */}
-            <div>
-              <h2
-                className="text-3xl font-black tracking-tight mb-6"
-                style={{ fontFamily: "'Playfair Display', serif" }}
-              >
-                Ariel Jimenez
-              </h2>
-              <div className="space-y-4 text-brand-muted leading-relaxed">
-                <p>
-                  Construyo con inteligencia artificial. Automatizo lo que otros
-                  hacen manual. Hago que negocios digitales funcionen.
-                </p>
-                <p>
-                  Me cansé de guardarme lo que pienso. Ahora grabo, publico y
-                  comparto lo que voy aprendiendo en el camino.
-                </p>
-                <p>
-                  BRAND IA es donde la marca se encuentra con la inteligencia
-                  artificial.
-                </p>
-              </div>
-
-              {/* Stats */}
-              <div className="mt-8 grid grid-cols-3 gap-4">
-                <div className="bg-brand-card border border-brand-border rounded-xl p-4 text-center">
-                  <p className="text-2xl font-bold text-brand-text">IA</p>
-                  <p className="text-xs text-brand-muted mt-1">Agentes & Automatización</p>
-                </div>
-                <div className="bg-brand-card border border-brand-border rounded-xl p-4 text-center">
-                  <p className="text-2xl font-bold text-brand-text">Dev</p>
-                  <p className="text-xs text-brand-muted mt-1">Full-Stack</p>
-                </div>
-                <div className="bg-brand-card border border-brand-border rounded-xl p-4 text-center">
-                  <p className="text-2xl font-bold text-brand-text">Biz</p>
-                  <p className="text-xs text-brand-muted mt-1">Negocios Digitales</p>
-                </div>
-              </div>
-            </div>
+          {/* Bio */}
+          <div>
+            <h2 className="text-2xl font-bold mb-3">About</h2>
+            <p className="text-white/60 leading-relaxed max-w-2xl">
+              Ariel Jimenez construye con IA y automatiza negocios digitales. Head of AI & Automation,
+              fundador de Brand IA — donde la automatización de ideas, videos, web y apps se une al crecimiento real.
+              Comparte contenido y aplicaciones para quitar lo manual e inflamar los negocios digitales con herramientas
+              efectivas. En GTC ayuda a otros a escalar con apps y sistemas que no necesitan supervisión constante.
+            </p>
           </div>
         </div>
       </section>
 
       {/* ==================== FOOTER ==================== */}
-      <footer className="py-12 px-6 border-t border-brand-border">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded bg-brand-blue flex items-center justify-center">
-              <span className="text-white font-bold text-[10px]">B</span>
-            </div>
-            <span className="text-sm text-brand-muted">
-              BRAND <span className="text-brand-orange">IA</span> — Ariel
-              Jimenez
-            </span>
+      <footer className="px-6 py-10 border-t border-white/8">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          {/* Email opt-in */}
+          <SubscribeForm compact />
+
+          {/* Socials */}
+          <div className="flex items-center gap-4">
+            <a
+              href="https://twitter.com/arieljimenezok"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/40 hover:text-white transition-colors"
+              aria-label="Twitter"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" />
+              </svg>
+            </a>
+            <a
+              href="https://github.com/arieljimenezwork-source"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/40 hover:text-white transition-colors"
+              aria-label="GitHub"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+              </svg>
+            </a>
           </div>
-          <p className="text-xs text-brand-muted/50">
-            &copy; 2026 BRANDIA. Mar del Plata, Argentina.
+
+          <p className="text-xs text-white/25">
+            &copy; 2025 BRANDIA, Mar del Plata, Argentina.
           </p>
         </div>
       </footer>
-    </>
+    </div>
   );
 }
